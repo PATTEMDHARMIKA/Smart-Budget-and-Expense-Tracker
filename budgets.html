@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Budgets</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        table { width: 100%; border-collapse: collapse; }
+        th, td { padding: 10px; border: 1px solid black; text-align: center; }
+        button { margin: 10px; padding: 5px 10px; }
+    </style>
+</head>
+<body>
+
+    <h2>Manage Budgets</h2>
+    
+    <label>Monthly Income:</label>
+    <input type="number" id="income" placeholder="Enter Income"><br><br>
+
+    <label>Start Date:</label>
+    <input type="date" id="start"><br><br>
+
+    <label>End Date:</label>
+    <input type="date" id="end"><br><br>
+
+    <h3>Budget Categories</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Category</th>
+                <th>Allocated Amount</th>
+                <th>Spent Amount</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody id="budgetTable">
+            <!-- Rows will be dynamically added here -->
+        </tbody>
+    </table>
+
+    <button id="addRow">Add Category</button>
+    <button id="saveBudget">Save Budget</button>
+    <a href="BudgetDetails.html"><button>View Budget Details</button></a>
+
+    <script>
+        $(document).ready(function() {
+            $("#addRow").click(function() {
+                $("#budgetTable").append(`<tr class="budget-row">
+                    <td><input type="text" class="category" placeholder="Category"></td>
+                    <td><input type="number" class="allocated" placeholder="Allocated"></td>
+                    <td><input type="number" class="spent" placeholder="Spent"></td>
+                    <td><button class="deleteRow">Delete</button></td>
+                </tr>`);
+            });
+
+            $(document).on("click", ".deleteRow", function() {
+                $(this).closest("tr").remove();
+            });
+
+            $("#saveBudget").click(function() {
+                let budgetData = {
+                    monthlyIncome: $("#income").val(),
+                    startDate: $("#start").val(),
+                    endDate: $("#end").val(),
+                    categories: []
+                };
+
+                $(".budget-row").each(function() {
+                    let category = $(this).find(".category").val();
+                    let allocated = parseFloat($(this).find(".allocated").val()) || 0;
+                    let spent = parseFloat($(this).find(".spent").val()) || 0;
+
+                    budgetData.categories.push({ category, allocated, spent });
+                });
+
+                localStorage.setItem("budgetDetails", JSON.stringify(budgetData));
+                alert("Budget details saved successfully!");
+            });
+        });
+    </script>
+
+</body>
+</html>

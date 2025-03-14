@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Budget Details</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <h2>Budget Details</h2>
+    <p>Monthly Income: <span id="monthlyIncome"></span></p>
+    <p>Start Date: <span id="startDate"></span></p>
+    <p>End Date: <span id="endDate"></span></p>
+
+    <h3>Budget Categories</h3>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Category</th>
+                <th>Allocated Amount</th>
+                <th>Spent Amount</th>
+                <th>Remaining Amount</th>
+            </tr>
+        </thead>
+        <tbody id="budgetTable"></tbody>
+    </table>
+
+    <h3>Budget Overview</h3>
+    <canvas id="budgetChart"></canvas>
+
+    <script>
+        // Fetch data from localStorage (Replace with API call if using a database)
+        const budgetData = JSON.parse(localStorage.getItem("budgetDetails")) || [];
+
+        document.getElementById("monthlyIncome").innerText = budgetData.monthlyIncome || "N/A";
+        document.getElementById("startDate").innerText = budgetData.startDate || "N/A";
+        document.getElementById("endDate").innerText = budgetData.endDate || "N/A";
+
+        const budgetTable = document.getElementById("budgetTable");
+        const categories = budgetData.categories || [];
+
+        let labels = [], allocations = [], spendings = [];
+
+        categories.forEach(item => {
+            let remaining = item.allocated - item.spent;
+            labels.push(item.category);
+            allocations.push(item.allocated);
+            spendings.push(item.spent);
+
+            let row = `<tr>
+                <td>${item.category}</td>
+                <td>${item.allocated.toFixed(2)}</td>
+                <td>${item.spent.toFixed(2)}</td>
+                <td>${remaining.toFixed(2)}</td>
+            </tr>`;
+            budgetTable.innerHTML += row;
+        });
+
+        // Render Chart
+        new Chart(document.getElementById("budgetChart"), {
+            type: "bar",
+            data: {
+                labels: labels,
+                datasets: [
+                    { label: "Allocation", backgroundColor: "skyblue", data: allocations },
+                    { label: "Spending", backgroundColor: "pink", data: spendings }
+                ]
+            },
+            options: { responsive: true }
+        });
+    </script>
+</body>
+</html>

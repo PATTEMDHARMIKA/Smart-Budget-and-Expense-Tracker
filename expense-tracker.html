@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expense Tracker</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+
+        header {
+            background-color: #ff4d4d;
+            padding: 15px;
+            text-align: left;
+            font-size: 20px;
+            color: white;
+            font-weight: bold;
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            padding: 10px;
+            background-color: #ff4d4d;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+        }
+
+        .container {
+            width: 80%;
+            margin: auto;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        canvas {
+            max-width: 100%;
+            margin-top: 20px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <header>Expense Tracker</header>
+    <nav>
+        <a href="dashboard.html">Dashboard</a>
+        <a href="expenses.html">Manage Expenses</a>
+        <a href="budgets.html">Manage Budgets</a>
+        <a href="reports.html">Reports and Analytics</a>
+    </nav>
+
+    <div class="container">
+        <h2>Expense by Category</h2>
+        <canvas id="expenseCategoryChart"></canvas>
+
+        <h2>Expense Over Time</h2>
+        <canvas id="expenseTimeChart"></canvas>
+    </div>
+
+    <script>
+        // Sample data (Replace with localStorage data)
+        const expenses = [
+            { category: "Bills", amount: 7000, date: "2023-03-10" },
+            { category: "Education", amount: 15000, date: "2023-04-15" },
+            { category: "Entertainment", amount: 3000, date: "2023-05-08" },
+            { category: "Food", amount: 4000, date: "2023-05-20" },
+            { category: "Gym", amount: 2000, date: "2023-06-10" },
+            { category: "Transportation", amount: 2500, date: "2023-07-05" }
+        ];
+
+        // Process data for category-wise expenses
+        const categoryData = {};
+        expenses.forEach(exp => {
+            categoryData[exp.category] = (categoryData[exp.category] || 0) + exp.amount;
+        });
+
+        const categoryLabels = Object.keys(categoryData);
+        const categoryAmounts = Object.values(categoryData);
+        const categoryColors = ["#8a2be2", "#00cc99", "#ff4444", "#ffbb33", "#cc0000", "#669900"];
+
+        // Bar Chart for Expense by Category
+        new Chart(document.getElementById("expenseCategoryChart"), {
+            type: "bar",
+            data: {
+                labels: categoryLabels,
+                datasets: [{
+                    label: "Total Amount",
+                    data: categoryAmounts,
+                    backgroundColor: categoryColors
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: { beginAtZero: true }
+                }
+            }
+        });
+
+        // Process data for expense over time
+        const timeLabels = expenses.map(exp => new Date(exp.date).toLocaleString("default", { month: "short", year: "numeric" }));
+        const timeAmounts = expenses.map(exp => exp.amount);
+
+        // Line Chart for Expense Over Time
+        new Chart(document.getElementById("expenseTimeChart"), {
+            type: "line",
+            data: {
+                labels: timeLabels,
+                datasets: [{
+                    label: "Total Amount",
+                    data: timeAmounts,
+                    borderColor: "#36a2eb",
+                    fill: false,
+                    tension: 0.2
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: { beginAtZero: true }
+                }
+            }
+        });
+    </script>
+
+</body>
+</html>

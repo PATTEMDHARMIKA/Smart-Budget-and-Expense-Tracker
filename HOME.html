@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Budgeting and Expense Tracker</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+
+        /* Header Styling */
+        .header {
+            background-color: #ae6bff;
+            padding: 50px;
+            color: white;
+            font-size: 28px;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        /* Navigation Bar */
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 60px;
+            background-color: #ff6b6b;
+        }
+
+        /* Username Display */
+        .username {
+            font-weight: bold;
+            color: white;
+        }
+
+        .nav-container a {
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+            padding: 10px 15px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .nav-container a:hover {
+            background-color: blue;
+            color: white;
+            border-radius: 5px;
+        }
+
+        /* Navigation Links */
+        .nav-buttons {
+            display: flex;
+            gap: 20px;
+        }
+
+        .auth-buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        /* Content Styling */
+        .container {
+            margin-top: 30px;
+        }
+
+        .sub-container {
+            display: flex;
+            justify-content: center;
+            gap: 50px;
+            margin-top: 20px;
+        }
+
+        /* Box Styling */
+        .box {
+            width: 300px;
+            height: 250px;
+            padding: 30px;
+            text-align: center;
+            border-radius: 10px;
+            background-color: orange;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        /* Hover Effect */
+        .box:hover {
+            background-color: red;
+            color: white;
+        }
+
+        .box img {
+            width: 60px;
+            height: 60px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Centered Heading -->
+    <div class="header">
+        Smart Budgeting and Expense Tracker
+    </div>
+
+    <!-- Navigation Section -->
+    <div class="nav-container">
+        <div class="username" id="username-display"></div>
+
+        <nav class="nav-buttons">
+            <a href="budgets.html">Manage Budgets</a>
+            <a href="BudgetDetails.html">Budget Details</a>
+            <a href="expenses.html">Expenses</a>
+            <a href="expense-tracker.html">Expense Tracker</a>
+        </nav>
+
+        <div class="auth-buttons" id="auth-buttons">
+            <!-- This section will update dynamically based on login status -->
+        </div>
+    </div>
+
+    <h1>Welcome to the Home Page!</h1>
+
+    <script>
+        // Get stored username from localStorage
+        const username = localStorage.getItem("loggedInUser");
+
+        const authButtons = document.getElementById("auth-buttons");
+        const usernameDisplay = document.getElementById("username-display");
+
+        if (username) {
+            // If user is logged in, show username and logout option
+            usernameDisplay.textContent = "Welcome, " + username;
+            authButtons.innerHTML = '<a href="logout.html">Logout</a>';
+        } else {
+            // If not logged in, show Sign In and Register options
+            authButtons.innerHTML = `
+                <a href="register.html">Register</a>
+                <a href="login.html">Sign In</a>
+            `;
+        }
+    </script>
+    
+    <!-- Main Content -->
+    <div class="container">
+        <h2>Keep Tabs on Your Spending Like Never Before</h2>
+        <p>Take charge of your money with our robust Expense Tracker software.</p>
+    </div>
+
+    <!-- Feature Boxes -->
+    <div class="sub-container">
+        <div class="box">
+            <img src="wallet_icon.png" alt="Manage Budget Icon">
+            <h3>Manage Your Budget</h3>
+            <p>Easily create and customize budgets to stay on top of your spending.</p>
+        </div>
+
+        <div class="box">
+            <img src="chart_icon.png" alt="Analyze Expenses Icon">
+            <h3>Analyze Your Expenses</h3>
+            <p>Visualize your expenses with interactive charts and insightful reports.</p>
+        </div>
+
+        <div class="box">
+            <img src="mobile_icon.png" alt="Access Anywhere Icon">
+            <h3>Access Anywhere</h3>
+            <p>Track your expenses on the go with our mobile-friendly app.</p>
+        </div>
+
+        <div class="box">
+            <img src="secure data icon.jpeg" alt="Secure Data Icon">
+            <h3>Secure Data</h3>
+            <p>Keep your financial data safe with encrypted cloud storage.</p>
+        </div>
+    </div>
+
+</body>
+</html>
