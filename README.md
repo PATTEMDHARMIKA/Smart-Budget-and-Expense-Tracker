@@ -3,31 +3,21 @@
 A web application designed to help users efficiently manage their finances by tracking income, categorizing expenses, and visualizing spending patterns with interactive charts and insights.
 
 **Features**
-1.User Authentication
 
-2.Register, login, and logout functionality with username display.
+1.User Authentication-Register, login, and logout functionality with username display.
 
-3.Budget Management
+2.Budget Management-Add, view, and manage monthly or custom budgets.
 
-4.Add, view, and manage monthly or custom budgets.
+3.Expense Tracking-Categorize and record daily expenses with detailed breakdowns.
 
-5.Expense Tracking
+4.Data Visualization-Interactive pie charts and bar charts to analyze spending.
 
-6.Categorize and record daily expenses with detailed breakdowns.
+5.Responsive Design-Optimized for both desktop and mobile devices.
 
-7.Data Visualization
-
-8.Interactive pie charts and bar charts to analyze spending.
-
-9.Responsive Design
-
-10.Optimized for both desktop and mobile devices.
-
-11.Dynamic Navigation
-
-Real-time updates to navigation (e.g., logout replacing sign-in/register).
+6.Dynamic Navigation-Real-time updates to navigation (e.g., logout replacing sign-in/register).
 
 **Tech Stack**
+
 Frontend: HTML, CSS, JavaScript
 
 Data Storage: Local Storage (can be extended to databases)
@@ -38,6 +28,7 @@ Deployment: GitHub Pages / Local Server
 
 
 **Usage**
+
 Register/Login: Create an account or sign in to start tracking.
 
 Add Budgets & Expenses: Manage monthly budgets and record daily expenses.
@@ -48,7 +39,6 @@ Logout: Safely log out and return to default view (register/sign-in).
 
 **Project Structure**
 
-.
 ├── index.html          
 ├── login.html           
 ├── register.html       
